@@ -35,3 +35,41 @@ totalAmountButton.addEventListener("click", () => {
 
 
 // FUNCTION FOR THE EXPORT FEATURE 
+const exportButton = document.getElementById("export-btn");
+
+exportButton.addEventListener("click", () => {
+  const listItems = document.querySelectorAll(".sublist-content");
+
+  const totalBudget = amount.innerText;
+  const totalExpenses = expenditureValue.innerText;
+  const remainingBalance = balanceValue.innerText;
+
+  let content = `Budget Summary:\n`;
+  content += `• Total Budget: $${totalBudget}\n`;
+  content += `• Total Expenses: $${totalExpenses}\n`;
+  content += `• Remaining Balance: $${remainingBalance}\n\n`;
+  content += `Expense List:\n`;
+
+  if (listItems.length === 0) {
+    content += "(No expenses recorded)\n";
+  } else {
+    listItems.forEach(item => {
+      const title = item.querySelector(".product").innerText;
+      const amount = item.querySelector(".amount").innerText;
+      content += `• ${title}: $${amount}\n`;
+    });
+  }
+
+  const blob = new Blob([content], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "budget-summary.txt";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+
+
+
+
