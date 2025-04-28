@@ -32,6 +32,29 @@ totalAmountButton.addEventListener("click", () => {
 //Function To Disable Edit and Delete Button
 
 //Function To Add Expenses
+checkAmountButton.addEventListener("click", () => {
+  //empty checks
+  if (!userAmount.value || !productTitle.value) {
+    productTitleError.classList.remove("hide");
+    return false;
+  }
+  //Enable buttons
+  disableButtons(false);
+  //Expense
+  let expenditure = parseInt(userAmount.value);
+  //Total expense (existing + new)
+  let sum = parseInt(expenditureValue.innerText) + expenditure;
+  expenditureValue.innerText = sum;
+  //Total balance(budget - total expense)
+  const totalBalance = tempAmount - sum;
+  balanceValue.innerText = totalBalance;
+  //Create list
+  listCreator(productTitle.value, userAmount.value);
+  //Empty inputs
+  productTitle.value = "";
+  userAmount.value = "";
+});
+
 
 
 // FUNCTION FOR THE EXPORT FEATURE 
